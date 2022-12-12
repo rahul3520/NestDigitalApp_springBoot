@@ -1,11 +1,10 @@
 package com.example.Nest_Digital_App_backend.model;
 
-
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "employees")
-public class Employee {
+@Table(name = "security")
+public class SecurityGuard {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -15,8 +14,6 @@ public class Employee {
 
     private String name;
 
-    private String designation;
-
     private int salary;
 
     private String phoneNo;
@@ -25,14 +22,13 @@ public class Employee {
 
     private String password;
 
-    public Employee() {
+    public SecurityGuard() {
     }
 
-    public Employee(int id, int empCode, String name, String designation, int salary, String phoneNo, String emailId, String password) {
+    public SecurityGuard(int id, int empCode, String name, int salary, String phoneNo, String emailId, String password) {
         this.id = id;
         this.empCode = empCode;
         this.name = name;
-        this.designation = designation;
         this.salary = salary;
         this.phoneNo = phoneNo;
         this.emailId = emailId;
@@ -61,14 +57,6 @@ public class Employee {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getDesignation() {
-        return designation;
-    }
-
-    public void setDesignation(String designation) {
-        this.designation = designation;
     }
 
     public int getSalary() {
