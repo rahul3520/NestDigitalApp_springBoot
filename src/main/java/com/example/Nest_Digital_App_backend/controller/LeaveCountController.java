@@ -9,10 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Date;
+import java.util.*;
 import java.time.LocalDate;
 
 
@@ -48,6 +45,63 @@ public class LeaveCountController {
         map.put("status","employee added to leave count");
 
         return map;
+    }
+
+    @CrossOrigin(origins = "*")
+    @PostMapping(path = "/reduceLeaveCount",produces = "application/json",consumes = "application/json")
+    public HashMap<String,String> ReduceLeaveCount(@RequestBody LeaveCount l)
+    {
+        String empid=String.valueOf(l.getEmpId());
+        String leavetype=String.valueOf(l.getLeaveType());
+        String casualLeave=String.valueOf(l.getCasualLeave());
+
+        HashMap<String,String> map=new HashMap<>();
+
+        if(Objects.equals(l.getLeaveType(), "Casual"))
+        {
+            if(l.getCasualLeave()>0)
+            {
+                ldao.ReduceCasualLeave(l.getEmpId(),l.getCasualLeave());
+                map.put("status","casual leave approved");
+                map.put("remaining casual leaves",String.valueOf(l.getCasualLeave()));
+            }
+            else
+            {
+                map.put("status","No more casual leaves remaining");
+
+            }
+        } else if (Objects.equals(l.getLeaveType(), "Sick"))
+        {
+            if(l.getSickLeave()>0)
+            {
+                ldao.ReduceSickLeave(l.getEmpId(),l.getSickLeave());
+                map.put("status","sick leave approved");
+                map.put("remaining sick leaves",String.valueOf(l.getSickLeave()));
+            }
+            else
+            {
+                map.put("status","No more sick leaves remaining");
+
+            }
+        }
+
+        else
+        {
+            if(l.getSpecialLeave()>0)
+            {
+                ldao.ReduceSpecialLeave(l.getEmpId(),l.getSpecialLeave());
+                map.put("status","special leave approved");
+                map.put("remaining special leaves",String.valueOf(l.getSpecialLeave()));
+            }
+            else
+            {
+                map.put("status","No more special leaves remaining");
+
+            }
+        }
+
+        return map;
+
     }
 
 }

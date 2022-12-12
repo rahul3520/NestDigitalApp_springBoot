@@ -21,16 +21,29 @@ public class LeaveCount {
 
     private int specialLeave;
 
+    private String leaveType;
+
     public LeaveCount() {
     }
 
-    public LeaveCount(int id, int empId, String year, int casualLeave, int sickLeave, int specialLeave) {
+//    public LeaveCount(int id, int empId, String year, int casualLeave, int sickLeave, int specialLeave) {
+//        this.id = id;
+//        this.empId = empId;
+//        this.year = year;
+//        this.casualLeave = casualLeave;
+//        this.sickLeave = sickLeave;
+//        this.specialLeave = specialLeave;
+
+//    }
+
+    public LeaveCount(int id, int empId, String year, int casualLeave, int sickLeave, int specialLeave, String leaveType) {
         this.id = id;
         this.empId = empId;
         this.year = year;
         this.casualLeave = casualLeave;
         this.sickLeave = sickLeave;
         this.specialLeave = specialLeave;
+        this.leaveType = leaveType;
     }
 
     public int getId() {
@@ -79,5 +92,13 @@ public class LeaveCount {
 
     public void setSpecialLeave(int specialLeave) {
         this.specialLeave = specialLeave;
+    }
+
+    public String getLeaveType() {
+        return leaveType;
+    }
+
+    public void setLeaveType(String leaveType) {
+        this.leaveType = leaveType;
     }
 }
