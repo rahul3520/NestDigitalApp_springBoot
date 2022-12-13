@@ -47,6 +47,14 @@ public class LeaveCountController {
         return map;
     }
 
+//    public List<LeaveCount> GetCurrentLeaveCount(@RequestBody LeaveCount l)
+//    {
+//        String eid=String.valueOf(l.getEmpId());
+//        String leaveid=String.valueOf(l.getId());
+//
+//        return (List<LeaveCount>) ldao.GetCurrentLeaveCount(l.getEmpId(),l.getId());
+//    }
+
     @CrossOrigin(origins = "*")
     @PostMapping(path = "/reduceLeaveCount",produces = "application/json",consumes = "application/json")
     public HashMap<String,String> ReduceLeaveCount(@RequestBody LeaveCount l)
@@ -54,6 +62,8 @@ public class LeaveCountController {
         String empid=String.valueOf(l.getEmpId());
         String leavetype=String.valueOf(l.getLeaveType());
         String casualLeave=String.valueOf(l.getCasualLeave());
+        String sickLeave=String.valueOf(l.getSickLeave());
+        String specialLeave=String.valueOf(l.getSpecialLeave());
 
         HashMap<String,String> map=new HashMap<>();
 
@@ -64,6 +74,7 @@ public class LeaveCountController {
                 ldao.ReduceCasualLeave(l.getEmpId(),l.getCasualLeave());
                 map.put("status","casual leave approved");
                 map.put("remaining casual leaves",String.valueOf(l.getCasualLeave()));
+
             }
             else
             {
