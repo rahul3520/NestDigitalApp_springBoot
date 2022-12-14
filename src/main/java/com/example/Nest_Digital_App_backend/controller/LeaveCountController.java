@@ -115,4 +115,15 @@ public class LeaveCountController {
 
     }
 
+    @CrossOrigin(origins = "*")
+    @PostMapping(path = "/viewRemainingLeaves",produces = "application/json",consumes = "application/json")
+    public List<LeaveCount> ViewRemainingLeaves(@RequestBody LeaveCount lc)
+    {
+        String empid=String.valueOf(lc.getEmpId());
+
+        System.out.println(empid);
+
+        return (List<LeaveCount>) ldao.FindLeavesRemaining(lc.getEmpId());
+    }
+
 }

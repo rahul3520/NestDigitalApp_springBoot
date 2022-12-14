@@ -11,7 +11,14 @@ import java.util.List;
 
 public interface EmployeeDao extends CrudRepository<Employee,Integer> {
 
-    @Query(value = "SELECT `id`, `designation`, `email_id`, `emp_code`, `name`, `password`, `phone_no`, `salary` FROM `employees` WHERE `emp_code`=:empCode",nativeQuery = true)
+
+    @Query(value = "SELECT `id`, `designation`, `email_id`, `emp_code`, `name`, `password`, `phone_no`, `salary` FROM `employees` WHERE `email_id`=:emailId AND `password`=:password",nativeQuery = true)
+    List<Employee> LoginVerify(@Param("emailId") String emailId,@Param("password") String password);
+
+    @Query(value = "SELECT `id`, `email_id`, `name`, `phone_no`,`designation`,`emp_code`,`salary`,`password` FROM `employees` WHERE `id`=:id",nativeQuery = true)
+    List<Employee> GetEmployeeProfile(@Param("id") int id);
+
+    @Query(value = "SELECT `id`, `designation`, `email_id`, `emp_code`, `name`, `password`, `phone_no`, `salary`  FROM `employees` WHERE `emp_code`=:empCode",nativeQuery = true)
     List<Employee> FindEmployee(@Param("empCode") int empCode);
 
 
