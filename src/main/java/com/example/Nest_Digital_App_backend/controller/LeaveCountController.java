@@ -61,9 +61,9 @@ public class LeaveCountController {
     {
         String empid=String.valueOf(l.getEmpId());
         String leavetype=String.valueOf(l.getLeaveType());
-        String casualLeave=String.valueOf(l.getCasualLeave());
-        String sickLeave=String.valueOf(l.getSickLeave());
-        String specialLeave=String.valueOf(l.getSpecialLeave());
+        int casualLeave=l.getCasualLeave();
+        int sickLeave=l.getSickLeave();
+        int specialLeave=l.getSpecialLeave();
 
         HashMap<String,String> map=new HashMap<>();
 
@@ -73,7 +73,7 @@ public class LeaveCountController {
             {
                 ldao.ReduceCasualLeave(l.getEmpId(),l.getCasualLeave());
                 map.put("status","casual leave approved");
-                map.put("remaining casual leaves",String.valueOf(l.getCasualLeave()));
+                map.put("remainingCasualLeaves",String.valueOf(l.getCasualLeave()));
 
             }
             else
@@ -87,7 +87,7 @@ public class LeaveCountController {
             {
                 ldao.ReduceSickLeave(l.getEmpId(),l.getSickLeave());
                 map.put("status","sick leave approved");
-                map.put("remaining sick leaves",String.valueOf(l.getSickLeave()));
+                map.put("remainingSickLeaves",String.valueOf(l.getSickLeave()));
             }
             else
             {
@@ -102,7 +102,7 @@ public class LeaveCountController {
             {
                 ldao.ReduceSpecialLeave(l.getEmpId(),l.getSpecialLeave());
                 map.put("status","special leave approved");
-                map.put("remaining special leaves",String.valueOf(l.getSpecialLeave()));
+                map.put("remainingSpecialLeaves",String.valueOf(l.getSpecialLeave()));
             }
             else
             {
@@ -119,11 +119,11 @@ public class LeaveCountController {
     @PostMapping(path = "/viewRemainingLeaves",produces = "application/json",consumes = "application/json")
     public List<LeaveCount> ViewRemainingLeaves(@RequestBody LeaveCount lc)
     {
-        String empid=String.valueOf(lc.getEmpId());
+        int empid=lc.getEmpId();
 
         System.out.println(empid);
 
-        return (List<LeaveCount>) ldao.FindLeavesRemaining(lc.getEmpId());
+        return ldao.FindLeavesRemaining(lc.getEmpId());
     }
 
 }
