@@ -72,6 +72,15 @@ public class LeaveApplicationController {
     }
 
     @CrossOrigin(origins = "*")
+    @PostMapping(path = "/viewAppliedLeaveStatus",produces = "application/json",consumes = "application/json")
+    public List<LeaveApplication> ViewLeaveAppliedStatus(@RequestBody LeaveApplication la)
+    {
+        int empid=la.getEmpId();
+
+        return ladao.FindLeaveStatus(la.getEmpId());
+    }
+
+    @CrossOrigin(origins = "*")
     @GetMapping("/viewLeaveApplicationWithLeaveCount")
     public List<Map<String,String>> ViewAllLeavesApplied()
     {
