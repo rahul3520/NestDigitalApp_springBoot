@@ -45,7 +45,7 @@ public class LeaveApplicationController {
     {
         String id=String.valueOf(la.getId());
         String empId=String.valueOf(la.getEmpId());
-//        String leaveType=String.valueOf(la.getLeaveType());
+        String leaveType=String.valueOf(la.getLeaveType());
 
         String leaveStatus=String.valueOf(la.getLeaveStatus());
 
