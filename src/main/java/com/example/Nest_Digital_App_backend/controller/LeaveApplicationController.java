@@ -87,4 +87,11 @@ public class LeaveApplicationController {
         return ladao.FindAllLeaveApplied();
     }
 
+    @CrossOrigin
+    @GetMapping("/findAllLeavesApplied")
+    public List<LeaveApplication> ViewAll()
+    {
+        return (List<LeaveApplication>) ladao.findAll();
+    }
+
 }
