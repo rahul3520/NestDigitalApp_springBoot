@@ -70,4 +70,23 @@ public class EmployeeLogsController {
 
         return (List<EmployeeLogs>) eldao.FindEmpLogsByDate(el.getDate());
     }
+
+    @CrossOrigin(origins = "*")
+    @PostMapping(path = "/markAbsentInEmployeeLog",produces = "application/json",consumes = "application/json")
+    public HashMap<String,String> MarkAbsentInLog(@RequestBody EmployeeLogs el)
+    {
+        String empid=String.valueOf(el.getEmpId());
+        String date=String.valueOf(el.getDate());
+
+        el.setEntryDateTime("Absent");
+        el.setExitDateTime("Absent");
+
+        eldao.save(el);
+
+        HashMap<String,String> map=new HashMap<>();
+
+        map.put("status","Employee Log marked as absent");
+
+        return map;
+    }
 }

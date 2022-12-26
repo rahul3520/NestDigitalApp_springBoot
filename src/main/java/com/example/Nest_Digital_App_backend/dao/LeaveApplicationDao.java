@@ -23,4 +23,7 @@ public interface LeaveApplicationDao extends CrudRepository<LeaveApplication,Int
             "ON la.emp_id=lc.emp_id ",nativeQuery = true)
     List<Map<String,String>> FindAllLeaveApplied();
 
+    @Query(value = "SELECT `id`, `apply_date`, `emp_id`, `from_date`, `leave_status`, `leave_type`, `remarks`, `to_date` FROM `leave_application` WHERE `emp_id`=:empId",nativeQuery = true)
+    List<LeaveApplication> FindLeaveStatus(@Param("empId") int empId);
+
 }

@@ -45,7 +45,7 @@ public class LeaveApplicationController {
     {
         String id=String.valueOf(la.getId());
         String empId=String.valueOf(la.getEmpId());
-//        String leaveType=String.valueOf(la.getLeaveType());
+        String leaveType=String.valueOf(la.getLeaveType());
 
         String leaveStatus=String.valueOf(la.getLeaveStatus());
 
@@ -72,10 +72,26 @@ public class LeaveApplicationController {
     }
 
     @CrossOrigin(origins = "*")
+    @PostMapping(path = "/viewAppliedLeaveStatus",produces = "application/json",consumes = "application/json")
+    public List<LeaveApplication> ViewLeaveAppliedStatus(@RequestBody LeaveApplication la)
+    {
+        int empid=la.getEmpId();
+
+        return ladao.FindLeaveStatus(la.getEmpId());
+    }
+
+    @CrossOrigin(origins = "*")
     @GetMapping("/viewLeaveApplicationWithLeaveCount")
     public List<Map<String,String>> ViewAllLeavesApplied()
     {
         return ladao.FindAllLeaveApplied();
+    }
+
+    @CrossOrigin
+    @GetMapping("/findAllLeavesApplied")
+    public List<LeaveApplication> ViewAll()
+    {
+        return (List<LeaveApplication>) ladao.findAll();
     }
 
 }

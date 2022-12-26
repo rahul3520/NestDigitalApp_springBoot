@@ -4,10 +4,7 @@ import com.example.Nest_Digital_App_backend.dao.EmployeeDao;
 import com.example.Nest_Digital_App_backend.dao.LeaveCountDao;
 import com.example.Nest_Digital_App_backend.model.LeaveCount;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 import java.time.LocalDate;
@@ -73,7 +70,7 @@ public class LeaveCountController {
             {
                 ldao.ReduceCasualLeave(l.getEmpId(),l.getCasualLeave());
                 map.put("status","casual leave approved");
-                map.put("remainingCasualLeaves",String.valueOf(l.getCasualLeave()));
+                map.put("remainingCasualLeaves",String.valueOf(l.getCasualLeave()-1));
 
             }
             else
@@ -87,7 +84,7 @@ public class LeaveCountController {
             {
                 ldao.ReduceSickLeave(l.getEmpId(),l.getSickLeave());
                 map.put("status","sick leave approved");
-                map.put("remainingSickLeaves",String.valueOf(l.getSickLeave()));
+                map.put("remainingSickLeaves",String.valueOf(l.getSickLeave()-1));
             }
             else
             {
@@ -102,7 +99,7 @@ public class LeaveCountController {
             {
                 ldao.ReduceSpecialLeave(l.getEmpId(),l.getSpecialLeave());
                 map.put("status","special leave approved");
-                map.put("remainingSpecialLeaves",String.valueOf(l.getSpecialLeave()));
+                map.put("remainingSpecialLeaves",String.valueOf(l.getSpecialLeave()-1));
             }
             else
             {
@@ -113,6 +110,13 @@ public class LeaveCountController {
 
         return map;
 
+    }
+
+    @CrossOrigin(origins = "*")
+    @GetMapping("/viewAllLeaveCountOfAllEmployees")
+    public List<LeaveCount> ViewAllLeaveCountData()
+    {
+        return (List<LeaveCount>) ldao.findAll();
     }
 
     @CrossOrigin(origins = "*")
